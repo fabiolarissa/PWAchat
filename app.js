@@ -9,9 +9,8 @@ let username = "";
 let mediaRecorder;
 let chunks = [];
 let localQuotes = ["Welcome to PWAchat Luxe ✨"];
-
-=======
-let appConfig = { appName: "PWAchat Luxe", roomName: "Global Lounge", botName: "@faacore", themeColor: "#0f1226", welcomeHint: "Pick a username to enter the public live room." };
+let appConfig = { appName: "PWAchat Luxe", roomName: "Global Lounge", botName: "@faacore", themeColor: "#0f1226", welcomeHint: "Pick a username to enter the public live room.", botPersona: "You are luxurious, warm, concise, and witty. Keep replies under 60 words unless asked otherwise.", botMemoryLimit: 12 };
+let botMemory = [];
 
 const usernameModal = document.getElementById("usernameModal");
 const usernameInput = document.getElementById("usernameInput");
