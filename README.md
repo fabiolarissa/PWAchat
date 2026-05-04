@@ -1,4 +1,4 @@
-# PWAchat
+# PWAchat - v1
 PWA compitable & Web App.
 
 ## Run locally
