@@ -4,7 +4,7 @@ const presence = gun.get("pwachat-luxe-presence");
 
 const GEMINI_API_KEY = "AIzaSyBw2CFeExp56hsEqvC7RX7egn8FqeriFAs";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-
+ 
 let username = "";
 let mediaRecorder;
 let chunks = [];
