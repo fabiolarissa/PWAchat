@@ -188,3 +188,29 @@ Edit:
 - [ ] Replace `quotes.json` with your own voice
 - [ ] Set your domain and HTTPS
 - [ ] Install on iOS and test media permissions
+
+
+## 13) Cloudflare Workers deploy fix (for your screenshot)
+Your screenshot shows **Cloudflare Workers CI/CD** using `npx wrangler deploy`.
+That flow needs a Wrangler config + worker entrypoint in the repo.
+
+This repo now includes:
+- `wrangler.toml`
+- `worker.js`
+
+### Exact Worker settings to use
+- Build command: **None**
+- Deploy command: `npx wrangler deploy`
+- Root directory: `/`
+- Production branch: `main`
+
+### First deploy checklist
+1. Ensure `wrangler.toml` is in repo root.
+2. Ensure `worker.js` is in repo root.
+3. Push latest commit to `main`.
+4. Trigger new deployment from Cloudflare.
+
+### If deploy still fails
+- Verify the Cloudflare API token has **Workers Scripts:Edit** and **Account:Read**.
+- Verify account/project are selected correctly in Cloudflare dashboard.
+- Check deployment logs for `wrangler.toml not found` or `main entrypoint missing` errors.
