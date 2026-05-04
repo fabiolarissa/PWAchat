@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f1226" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="PWAchat Luxe" />
+    <title>PWAchat Luxe</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icons/icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+  </head>
+  <body>
+    <div id="usernameModal" class="modal show">
+      <div class="card">
+        <h1 id="appTitle">PWAchat Luxe</h1>
+        <p id="welcomeHint">Pick a username to enter the public live room.</p>
+        <input id="usernameInput" maxlength="20" placeholder="e.g. NovaQueen" />
+        <button id="joinBtn">Enter Chatroom</button>
+      </div>
+    </div>
+
+    <main class="app-shell">
+      <header>
+        <h2 id="roomTitle">Global Lounge</h2>
+        <small id="onlineCount">Online: -</small>
+      </header>
+
+      <section id="messages" class="messages"></section>
+
+      <footer>
+        <div class="composer-row">
+          <textarea id="messageInput" placeholder="Say something... call @faacore for bot replies"></textarea>
+          <button id="sendBtn">Send</button>
+        </div>
+        <div class="media-row">
+          <label class="file-btn">Photo/Video <input id="fileInput" type="file" accept="image/*,video/*" hidden /></label>
+          <button id="recordBtn">🎙️ Voice Note</button>
+        </div>
+      </footer>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
