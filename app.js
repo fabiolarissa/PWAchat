@@ -9,6 +9,8 @@ let username = "";
 let mediaRecorder;
 let chunks = [];
 let localQuotes = ["Welcome to PWAchat Luxe ✨"];
+
+=======
 let appConfig = { appName: "PWAchat Luxe", roomName: "Global Lounge", botName: "@faacore", themeColor: "#0f1226", welcomeHint: "Pick a username to enter the public live room." };
 
 const usernameModal = document.getElementById("usernameModal");
@@ -23,6 +25,7 @@ const onlineCount = document.getElementById("onlineCount");
 
 loadConfig();
 loadQuotes();
+loadMemory();
 
 joinBtn.onclick = () => {
   const name = usernameInput.value.trim();
@@ -56,7 +59,10 @@ function pushMessage(payload) {
   if (!username) return alert("Choose username first.");
   const msg = { ...payload, user: username, ts: Date.now() };
   room.set(msg);
-  if ((msg.text || "").toLowerCase().includes(appConfig.botName.toLowerCase())) callBot(msg.text);
+  if ((msg.text || "").toLowerCase().includes(appConfig.botName.toLowerCase())) {
+    remember({ user: username, text: msg.text, ts: msg.ts });
+    callBot(msg.text);
+  }
 }
 
 sendBtn.onclick = () => {
@@ -105,6 +111,7 @@ async function callBot(prompt) {
     }
 
     const answer = await getGeminiResponse(prompt);
+    remember({ user: botName, text: answer, ts: Date.now() });
     room.set({ user: botName, text: answer, ts: Date.now() });
   } catch {
     room.set({ user: botName, text: randomQuote(), ts: Date.now() });
@@ -112,12 +119,13 @@ async function callBot(prompt) {
 }
 
 async function getGeminiResponse(prompt) {
+  const memoryContext = botMemory.map((m) => `${m.user}: ${m.text}`).join("\n");
   const res = await fetch(GEMINI_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       contents: [
-        { role: "user", parts: [{ text: `You are @faacore, concise and friendly. User said: ${prompt}` }] }
+        { role: "user", parts: [{ text: `${appConfig.botPersona}\nRoom: ${appConfig.roomName}\nRecent memory:\n${memoryContext || "(none)"}\n\nUser said: ${prompt}` }] }
       ]
     })
   });
@@ -182,6 +190,22 @@ async function sendBotPresenceMessage(type, name) {
   } catch {
     room.set({ user: botName, text: fallback, ts: Date.now() });
   }
+}
+
+
+function remember(entry) {
+  botMemory.push(entry);
+  const limit = Number(appConfig.botMemoryLimit) || 12;
+  if (botMemory.length > limit) botMemory = botMemory.slice(-limit);
+  localStorage.setItem("pwachat_bot_memory", JSON.stringify(botMemory));
+}
+
+function loadMemory() {
+  try {
+    const raw = localStorage.getItem("pwachat_bot_memory");
+    const parsed = JSON.parse(raw || "[]");
+    if (Array.isArray(parsed)) botMemory = parsed;
+  } catch {}
 }
 
 async function loadConfig() {

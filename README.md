@@ -48,3 +48,10 @@ Edit `app-config.json` to rename app and bot without touching code:
 - When a user joins, `@faacore` posts a welcome message.
 - When a user leaves/closes tab, `@faacore` posts a goodbye message.
 - Messages are AI-generated when Gemini is reachable, with local fallback text otherwise.
+
+## Bot memory + persona
+You can customize behavior in `app-config.json`:
+- `botPersona`: system-style instruction for bot tone/personality.
+- `botMemoryLimit`: how many recent memory items are kept.
+
+Memory is stored in browser `localStorage` under `pwachat_bot_memory` and is included in Gemini prompts for contextual replies.
