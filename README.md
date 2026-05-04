@@ -1,7 +1,7 @@
 # ✨ PWAchat Luxe
 A luxury-styled, installable, real-time public chatroom PWA with media sharing and an AI bot assistant.
 
---- 
+---
 
 ## 1) What this app does
 - Global public chatroom (no registration)

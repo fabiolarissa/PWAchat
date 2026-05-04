@@ -3,7 +3,7 @@
   --glass: rgba(255, 255, 255, 0.08);
   --gold: #f7d477;
   --text: #f4f7ff;
-} 
+}
 * { box-sizing: border-box; }
 body {
   margin: 0;

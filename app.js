@@ -4,7 +4,7 @@ const presence = gun.get("pwachat-luxe-presence");
 
 const GEMINI_API_KEY = "AIzaSyBw2CFeExp56hsEqvC7RX7egn8FqeriFAs";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
- 
+
 let username = "";
 let mediaRecorder;
 let chunks = [];
@@ -26,16 +26,24 @@ loadConfig();
 loadQuotes();
 loadMemory();
 
-joinBtn.onclick = () => {
+function joinChat() {
   const name = usernameInput.value.trim();
-  if (!name) return;
+  if (!name) {
+    usernameInput.focus();
+    return;
+  }
   username = name;
   localStorage.setItem("pwachat_name", username);
   usernameModal.classList.remove("show");
-
   presence.get(`${username}-${Date.now()}`).put({ username, ts: Date.now() });
   sendBotPresenceMessage("join", username);
-};
+}
+
+joinBtn.addEventListener("click", joinChat);
+joinBtn.addEventListener("touchend", joinChat);
+usernameInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") joinChat();
+});
 
 usernameInput.value = localStorage.getItem("pwachat_name") || "";
 
