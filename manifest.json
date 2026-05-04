@@ -1,6 +1,6 @@
 {
   "name": "PWAchat Luxe",
-  "short_name": "PWAchat",
+  "short_name": "PWAchat", 
   "start_url": ".",
   "display": "standalone",
   "background_color": "#090b16",
